@@ -12,7 +12,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 //import edu.wpi.first.wpilibj.XboxController;
 //import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.AutoModeCommand;
+import frc.robot.commands.CompoundAutoCommand;
+import frc.robot.commands.ControlPanelCommand;
 import frc.robot.commands.TeleopCommand;
+import frc.robot.subsystems.ControlPanel;
 //import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -31,10 +34,16 @@ public class RobotContainer {
   private final DriveTrain _driveTrain = new DriveTrain(Constants.CAN_LeftMotor,
                                                         Constants.CAN_LeftFollower,
                                                         Constants.CAN_RightMotor,
-                                                        Constants.CAN_RightFollower);
+                                                        Constants.CAN_RightFollower,
+                                                        Constants.DIO_leftEncoder,
+                                                        Constants.DIO_rightEncoder);
+
+  private final ControlPanel _controlPanel = new ControlPanel();
 
  // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private final AutoModeCommand _autoCommand = new AutoModeCommand(_driveTrain);
+  private final AutoModeCommand _autoCommand = new AutoModeCommand(_driveTrain, 0.4);
+  private final CompoundAutoCommand _compoundAutoCommand = new CompoundAutoCommand(_driveTrain);
+  private final ControlPanelCommand _controlPanelCommand = new ControlPanelCommand(_controlPanel);
   
   private final Joystick _stick = new Joystick(Constants.JS_port);
   private final TeleopCommand _teleOpCommand = new TeleopCommand(_driveTrain, _stick);
@@ -64,7 +73,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return _autoCommand;
+    return _controlPanelCommand;
   }
 
   public Command getTeleOpCommand() {

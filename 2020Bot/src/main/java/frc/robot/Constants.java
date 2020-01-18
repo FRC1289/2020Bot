@@ -28,6 +28,8 @@ public final class Constants {
     public static int PWM_motor = 0;
 
     // DIO Bus
+    public static int DIO_leftEncoder = 1;
+    public static int DIO_rightEncoder = 0;
 
 
     // Operator Interface

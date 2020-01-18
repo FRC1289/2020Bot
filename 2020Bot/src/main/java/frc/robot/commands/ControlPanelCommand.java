@@ -7,34 +7,32 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.ControlPanel;
 
-public class AutoModeCommand extends CommandBase {
-  DriveTrain _driveTrain;
-  double _targetEncoderCount;
-  double _speed;
-
-  public AutoModeCommand(DriveTrain driveTrain, double speed) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    _driveTrain = driveTrain;
-    _speed = speed;
-    addRequirements(_driveTrain);
+public class ControlPanelCommand extends CommandBase {
+  
+  private ControlPanel _controlPanel;
+  
+  public ControlPanelCommand(ControlPanel panel) {
+    addRequirements(panel);
+    _controlPanel = panel;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    _driveTrain.reset();
-    _targetEncoderCount = SmartDashboard.getNumber("targetEncoderCount", 0.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    _driveTrain.drive(_speed);
-    SmartDashboard.putNumber("encoderCount", _driveTrain.EncoderCount());
+    int prox = _controlPanel.GetProximity();
+    //System.out.println(prox);
+    if (prox > 15)
+      System.out.println(_controlPanel.DetectedColor());
+    else
+      System.out.println("Out of Range");
   }
 
   // Called once the command ends or is interrupted.
@@ -45,9 +43,6 @@ public class AutoModeCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (_targetEncoderCount > _driveTrain.EncoderCount()) 
-      return false;
-    else 
-      return true;
+    return false;
   }
 }
