@@ -8,18 +8,25 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.GameDataManager;
+import frc.robot.ColorTarget;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
+
 
 public class TeleopCommand extends CommandBase {
   DriveTrain _driveTrain;
   GenericHID _stick;
+  GameDataManager _dataManager;
 
-  public TeleopCommand(DriveTrain drivetrain, GenericHID stick) {
+  public TeleopCommand(DriveTrain drivetrain, GenericHID stick, GameDataManager datamanager) {
     addRequirements(drivetrain);
     _driveTrain = drivetrain;  
     _stick = stick;
+    _dataManager = datamanager;
   }
 
   // Called when the command is initially scheduled.
@@ -32,6 +39,9 @@ public class TeleopCommand extends CommandBase {
   @Override
   public void execute() {
     _driveTrain.drive(_stick.getY(), _stick.getX(), _stick.getRawButton(Constants.JS_Trigger));
+    if (_dataManager.targetColor() != ColorTarget.UNKNOWN)
+      SmartDashboard.putString("PANEL COLOR", "KNOWN");
+
   }
 
   // Called once the command ends or is interrupted.
@@ -44,4 +54,6 @@ public class TeleopCommand extends CommandBase {
   public boolean isFinished() {
     return false;
   }
+
+  
 }

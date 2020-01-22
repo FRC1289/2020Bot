@@ -35,4 +35,5 @@ public final class Constants {
     // Operator Interface
     public static int JS_port = 1;
     public static int JS_Trigger = 1;
+    public static int JS_positionPanel = 7;
 }

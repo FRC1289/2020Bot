@@ -7,43 +7,46 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ControlPanel;
+import frc.robot.subsystems.GameDataManager;
 
-public class ControlPanelCommand extends CommandBase {
-  
+public class ControlPanelPosition extends CommandBase {
+
   private ControlPanel _controlPanel;
-  
-  public ControlPanelCommand(ControlPanel panel) {
+  private GameDataManager _dataManager;
+
+  public ControlPanelPosition(ControlPanel panel, GameDataManager dataManager) {
     addRequirements(panel);
     _controlPanel = panel;
+    _dataManager = dataManager;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    _controlPanel.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    int prox = _controlPanel.GetProximity();
-    //System.out.println(prox);
-    if (prox > (int) SmartDashboard.getNumber("Proximity", 0.0))
-      System.out.println(_controlPanel.DetectedColor().toString());
-    else
-      System.out.println("Out of Range");
+    _controlPanel.setMotorSpeed(0.2);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    _controlPanel.setMotorSpeed(0.0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+
+    if (_controlPanel.DetectedColor() == _dataManager.targetColor())
+      return true;
+    else
+      return false;
   }
 }
