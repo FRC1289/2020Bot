@@ -8,50 +8,38 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ControlPanel;
-import frc.robot.subsystems.GameDataManager;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.Constants;
+import frc.robot.subsystems.ClimberManager;
 
-public class ControlPanelPosition extends CommandBase {
+public class RaiseClimber extends CommandBase {
+  ClimberManager _climberManager;
 
-  private ControlPanel _controlPanel;
-  private GameDataManager _dataManager;
-  private DriveTrain _driveTrain;
-
-  public ControlPanelPosition(ControlPanel panel, DriveTrain drivetrain, GameDataManager dataManager) {
-    addRequirements(panel);
-    addRequirements(drivetrain);
-    _controlPanel = panel;
-    _dataManager = dataManager;
-    _driveTrain = drivetrain;
+  public RaiseClimber(ClimberManager manager) {
+    _climberManager = manager;
+    addRequirements(_climberManager);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    _controlPanel.reset();
+    _climberManager.Reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    _controlPanel.setMotorSpeed(Constants.PARAM_panelRotateSpeed);
-    _driveTrain.drive(Constants.PARAM_panelThrust);
+    _climberManager.RaiseClimber();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    _controlPanel.setMotorSpeed(0.0);
-    _driveTrain.reset();
+    _climberManager.Reset();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-
-    if (_controlPanel.DetectedColor() == _dataManager.targetColor())
+    if (_climberManager.ElevateSwitchState())
       return true;
     else
       return false;

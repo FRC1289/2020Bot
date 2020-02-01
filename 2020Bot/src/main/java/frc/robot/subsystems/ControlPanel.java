@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -18,6 +19,7 @@ import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
 import frc.robot.ColorChannel;
 import frc.robot.ColorTarget;
+import frc.robot.Constants;
 
 
 public class ControlPanel extends SubsystemBase {
@@ -26,28 +28,31 @@ public class ControlPanel extends SubsystemBase {
   private Color _blue, _green, _red, _yellow;
   private Preferences _preferences;
   private Talon _motor;
+  private Encoder _encoder;
 
-  public ControlPanel(int PWMport) {
-   _motor = new Talon(PWMport);
+  public ControlPanel() {
+   _motor = new Talon(Constants.PWM_ControlPanelMotor);
     _colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
    _colorMatcher = new ColorMatch();
    _preferences = Preferences.getInstance();
+   _encoder = new Encoder(Constants.DIO_ControlPanelEncoderChannel_A, 
+                          Constants.DIO_ControlPanelEncoderChannel_B);
   //  _blue = ColorMatch.makeColor(0.145, 0.440, 0.400);
   //  _green = ColorMatch.makeColor(0.190, 0.566, 0.245);
   //  _red = ColorMatch.makeColor(0.504, 0.361, 0.137);
   //  _yellow = ColorMatch.makeColor(0.316, 0.552, 0.132);
-  _blue = ColorMatch.makeColor(_preferences.getDouble("Blue_Rgb", 0.0),
-                               _preferences.getDouble("Blue_rGb", 0.0),
-                               _preferences.getDouble("Blue_rgB", 0.0) );
-  _green = ColorMatch.makeColor(_preferences.getDouble("Green_Rgb", 0.0),
-                               _preferences.getDouble("Green_rGb", 0.0),
-                               _preferences.getDouble("Green_rgB", 0.0) );
-  _red = ColorMatch.makeColor(_preferences.getDouble("Red_Rgb", 0.0),
-                               _preferences.getDouble("Red_rGb", 0.0),
-                               _preferences.getDouble("Red_rgB", 0.0) );
-  _yellow = ColorMatch.makeColor(_preferences.getDouble("Yellow_Rgb", 0.0),
-                               _preferences.getDouble("Yellow_rGb", 0.0),
-                               _preferences.getDouble("Yellow_rgB", 0.0) );
+  _blue = ColorMatch.makeColor(_preferences.getDouble(Constants.PARAM_Blue_Rgb, 0.0),
+                               _preferences.getDouble(Constants.PARAM_Blue_rGb, 0.0),
+                               _preferences.getDouble(Constants.PARAM_Blue_rgB, 0.0) );
+  _green = ColorMatch.makeColor(_preferences.getDouble(Constants.PARAM_Green_Rgb, 0.0),
+                               _preferences.getDouble(Constants.PARAM_Green_rGb, 0.0),
+                               _preferences.getDouble(Constants.PARAM_Green_rgB, 0.0) );
+  _red = ColorMatch.makeColor(_preferences.getDouble(Constants.PARAM_Red_Rgb, 0.0),
+                               _preferences.getDouble(Constants.PARAM_Red_rGb, 0.0),
+                               _preferences.getDouble(Constants.PARAM_Red_rgB, 0.0) );
+  _yellow = ColorMatch.makeColor(_preferences.getDouble(Constants.PARAM_Yellow_Rgb, 0.0),
+                               _preferences.getDouble(Constants.PARAM_Yellow_rGb, 0.0),
+                               _preferences.getDouble(Constants.PARAM_Yellow_rgB, 0.0) );
   _colorMatcher.addColorMatch(_blue);
   _colorMatcher.addColorMatch(_green);
   _colorMatcher.addColorMatch(_red);
@@ -80,8 +85,8 @@ public class ControlPanel extends SubsystemBase {
 
   @Override
   public void periodic() {
-    
   }
+
   public int GetProximity() {
     return _colorSensor.getProximity(); 
   }
@@ -91,7 +96,7 @@ public class ControlPanel extends SubsystemBase {
     ColorTarget target = ColorTarget.UNKNOWN;
     ColorMatchResult match = _colorMatcher.matchClosestColor(detectedColor);
 
-    if (GetProximity() < (int) (SmartDashboard.getNumber("Proximity", 0.0) + 10))
+    if (GetProximity() < (int) (SmartDashboard.getNumber(Constants.PARAM_Proximity, 0.0) + 10))
       return target; // UNKNOWN
     
     if (match.color == _blue) {
@@ -116,5 +121,10 @@ public class ControlPanel extends SubsystemBase {
 
   public void reset() {
     _motor.set(0.0);
+    _encoder.reset();
+  }
+
+  public int GetEncoderCount() { 
+    return _encoder.get();
   }
 }

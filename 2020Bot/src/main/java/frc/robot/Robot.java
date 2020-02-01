@@ -7,13 +7,9 @@
 
 package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.NetworkTableEntry;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -33,9 +29,6 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  private NetworkTableEntry _targetEncoderCount;
-  private NetworkTableEntry _gyroPGain;
-  private Preferences _preferences;
 
   //WPI_TalonSRX motor;
 
@@ -49,9 +42,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     // motor = new WPI_TalonSRX(1);
-    _preferences = Preferences.getInstance();
-    NetworkTableSetup();
-    CameraServer.getInstance().startAutomaticCapture();
+    //CameraServer.getInstance().startAutomaticCapture();
     
   }
 
@@ -144,34 +135,5 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
     CommandScheduler.getInstance().run();
   }
-
-  private void NetworkTableSetup() {
-    NetworkTableInstance server = NetworkTableInstance.getDefault();
-    NetworkTable table = server.getTable("SmartDashboard");
-
-    _targetEncoderCount = table.getEntry("targetEncoderCount");
-    _targetEncoderCount.setPersistent();
-    _gyroPGain = table.getEntry("kP");
-
-    SmartDashboard.putNumber("targetEncoderCount", 0.0);
-    SmartDashboard.putNumber("encoderCount", 0.0);
-    SmartDashboard.putNumber("kP", 0.0);
-    SmartDashboard.putString("PANEL COLOR", "------");
-    SmartDashboard.putNumber("Blue_Rgb", _preferences.getDouble("Blue_Rgb", 0.0));
-    SmartDashboard.putNumber("Blue_rGb", _preferences.getDouble("Blue_rGb", 0.0));
-    SmartDashboard.putNumber("Blue_rgB", _preferences.getDouble("Blue_rgB", 0.0));
-    SmartDashboard.putNumber("Green_Rgb", _preferences.getDouble("Green_Rgb", 0.0));
-    SmartDashboard.putNumber("Green_rGb", _preferences.getDouble("Green_rGb", 0.0));
-    SmartDashboard.putNumber("Green_rgB", _preferences.getDouble("Green_rgB", 0.0));
-    SmartDashboard.putNumber("Red_Rgb", _preferences.getDouble("Red_Rgb", 0.0));
-    SmartDashboard.putNumber("Red_rGb", _preferences.getDouble("Red_rGb", 0.0));
-    SmartDashboard.putNumber("Red_rgB", _preferences.getDouble("Red_rgB", 0.0));
-    SmartDashboard.putNumber("Yellow_Rgb", _preferences.getDouble("Yellow_Rgb", 0.0));
-    SmartDashboard.putNumber("Yellow_rGb", _preferences.getDouble("Yellow_rGb", 0.0));
-    SmartDashboard.putNumber("Yellow_rgB", _preferences.getDouble("Yellow_rgB", 0.0));
-    SmartDashboard.putNumber("Proximity", _preferences.getDouble("Proximity", 0.0));
-  }
-
-  
   
 }

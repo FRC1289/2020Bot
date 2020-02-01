@@ -8,50 +8,38 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ControlPanel;
-import frc.robot.subsystems.GameDataManager;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.Constants;
+import frc.robot.subsystems.*;
 
-public class ControlPanelPosition extends CommandBase {
+public class Climb extends CommandBase {
+  ClimberManager _climber;
 
-  private ControlPanel _controlPanel;
-  private GameDataManager _dataManager;
-  private DriveTrain _driveTrain;
-
-  public ControlPanelPosition(ControlPanel panel, DriveTrain drivetrain, GameDataManager dataManager) {
-    addRequirements(panel);
-    addRequirements(drivetrain);
-    _controlPanel = panel;
-    _dataManager = dataManager;
-    _driveTrain = drivetrain;
+  public Climb(ClimberManager manager) {
+    _climber = manager;
+    addRequirements(_climber);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    _controlPanel.reset();
+    _climber.Reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    _controlPanel.setMotorSpeed(Constants.PARAM_panelRotateSpeed);
-    _driveTrain.drive(Constants.PARAM_panelThrust);
+    _climber.Climb();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    _controlPanel.setMotorSpeed(0.0);
-    _driveTrain.reset();
+    _climber.Reset();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-
-    if (_controlPanel.DetectedColor() == _dataManager.targetColor())
+    if (_climber.ClimbSwitchState())
       return true;
     else
       return false;

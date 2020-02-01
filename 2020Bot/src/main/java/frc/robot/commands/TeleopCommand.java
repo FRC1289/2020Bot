@@ -40,7 +40,7 @@ public class TeleopCommand extends CommandBase {
   public void execute() {
     _driveTrain.drive(_stick.getY(), _stick.getX(), _stick.getRawButton(Constants.JS_Trigger));
     if (_dataManager.targetColor() != ColorTarget.UNKNOWN)
-      SmartDashboard.putString("PANEL COLOR", "KNOWN");
+      SmartDashboard.putString(Constants.PARAM_PANEL_COLOR, "KNOWN");
 
   }
 

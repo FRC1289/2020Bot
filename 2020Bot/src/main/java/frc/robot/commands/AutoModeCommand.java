@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.Constants;
 
 public class AutoModeCommand extends CommandBase {
   DriveTrain _driveTrain;
@@ -27,14 +28,14 @@ public class AutoModeCommand extends CommandBase {
   @Override
   public void initialize() {
     _driveTrain.reset();
-    _targetEncoderCount = SmartDashboard.getNumber("targetEncoderCount", 0.0);
+    _targetEncoderCount = SmartDashboard.getNumber(Constants.PARAM_targetEncoderCount, 0.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     _driveTrain.drive(_speed);
-    SmartDashboard.putNumber("encoderCount", _driveTrain.EncoderCount());
+    SmartDashboard.putNumber(Constants.PARAM_encoderCount, _driveTrain.EncoderCount());
   }
 
   // Called once the command ends or is interrupted.

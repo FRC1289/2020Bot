@@ -10,40 +10,50 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ControlPanel;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.NetworkDataManager;
+import frc.robot.Constants;
 
 public class ControlPanelCommand extends CommandBase {
   
   private ControlPanel _controlPanel;
+  private DriveTrain _driveTrain;
+  private NetworkDataManager _dataManager;
   
-  public ControlPanelCommand(ControlPanel panel) {
+  public ControlPanelCommand(ControlPanel panel, DriveTrain drivetrain, NetworkDataManager datamanager) {
     addRequirements(panel);
+    addRequirements(drivetrain);
     _controlPanel = panel;
+    _driveTrain = drivetrain;
+    _dataManager = datamanager;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    _controlPanel.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    int prox = _controlPanel.GetProximity();
-    //System.out.println(prox);
-    if (prox > (int) SmartDashboard.getNumber("Proximity", 0.0))
-      System.out.println(_controlPanel.DetectedColor().toString());
-    else
-      System.out.println("Out of Range");
+    _controlPanel.setMotorSpeed(Constants.PARAM_panelRotateSpeed);
+    _driveTrain.drive(Constants.PARAM_panelThrust);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    _controlPanel.reset();
+    _driveTrain.reset();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (_controlPanel.GetEncoderCount() > Constants.PARAM_panelRotateCount)
+      return true;
+    else
+      return false;
   }
 }

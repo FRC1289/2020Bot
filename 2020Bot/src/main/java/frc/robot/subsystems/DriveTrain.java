@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
   
@@ -26,13 +27,13 @@ public class DriveTrain extends SubsystemBase {
   private Counter _leftEncoder;
   private Counter _rightEncoder;
   private ADXRS450_Gyro _gyro;
+ 
 
-  public DriveTrain(int leftMotorID, int leftFollowerID, int rightMotorID, int rightFollowerID,
-                    int leftEncoderID, int rightEncoderID) {
-    _leftMotor = new WPI_TalonSRX(leftMotorID);
-    _leftFollower = new WPI_TalonSRX(leftFollowerID);
-    _rightMotor = new WPI_TalonSRX(rightMotorID);
-    _rightFollower = new WPI_TalonSRX(rightFollowerID);
+  public DriveTrain() {
+    _leftMotor = new WPI_TalonSRX(Constants.CAN_LeftMotor);
+    _leftFollower = new WPI_TalonSRX(Constants.CAN_LeftFollower);
+    _rightMotor = new WPI_TalonSRX(Constants.CAN_RightMotor);
+    _rightFollower = new WPI_TalonSRX(Constants.CAN_RightFollower);
 
     initDriveTrain();
     _driveTrain = new DifferentialDrive(_leftMotor, _rightMotor);
@@ -42,8 +43,8 @@ public class DriveTrain extends SubsystemBase {
      */
      _driveTrain.setRightSideInverted(false);
 
-     _leftEncoder = new Counter(leftEncoderID);
-     _rightEncoder = new Counter(rightEncoderID);
+     _leftEncoder = new Counter(Constants.DIO_leftEncoder);
+     _rightEncoder = new Counter(Constants.DIO_rightEncoder);
 
      _gyro = new ADXRS450_Gyro();     
      _gyro.calibrate();
@@ -97,11 +98,11 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void drive(double throttle) {
-    double kp = SmartDashboard.getNumber("kP", 0.0);
-    double turn = - _gyro.getRate();
-    System.out.println(turn);
-    _driveTrain.arcadeDrive(throttle + turn * kp , - turn * kp );
-    //_driveTrain.arcadeDrive(throttle, 0.0);
+    // double kp = SmartDashboard.getNumber(Constants.PARAM_kP, 0.0);
+    // double turn = - _gyro.getRate();
+    // System.out.println(turn);
+    // _driveTrain.arcadeDrive(throttle + turn * kp , - turn * kp );
+    _driveTrain.arcadeDrive(throttle, 0.0);
   }
 
   public double EncoderCount() {

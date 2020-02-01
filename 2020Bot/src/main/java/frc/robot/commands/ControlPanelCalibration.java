@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ColorChannel;
 import frc.robot.ColorTarget;
 import frc.robot.subsystems.ControlPanel;
+import frc.robot.Constants;
 
 public class ControlPanelCalibration extends CommandBase {
   
@@ -78,30 +79,30 @@ public class ControlPanelCalibration extends CommandBase {
     blueAverage = blueSum / _numCalibrationValues;
     proxAverage = proxSum / _numCalibrationValues;
     
-    _preferences.putDouble("Proximity", proxAverage); 
+    _preferences.putDouble(Constants.PARAM_Proximity, proxAverage); 
     switch (_targetColor) {
       case RED:
-      _preferences.putDouble("Red_Rgb", redAverage);
-      _preferences.putDouble("Red_rGb", greenAverage);
-      _preferences.putDouble("Red_rgB", blueAverage);
+      _preferences.putDouble(Constants.PARAM_Red_Rgb, redAverage);
+      _preferences.putDouble(Constants.PARAM_Red_rGb, greenAverage);
+      _preferences.putDouble(Constants.PARAM_Red_rgB, blueAverage);
       break;
 
       case GREEN:
-      _preferences.putDouble("Green_Rgb", redAverage);
-      _preferences.putDouble("Green_rGb", greenAverage);
-      _preferences.putDouble("Green_rgB", blueAverage);
+      _preferences.putDouble(Constants.PARAM_Green_Rgb, redAverage);
+      _preferences.putDouble(Constants.PARAM_Green_rGb, greenAverage);
+      _preferences.putDouble(Constants.PARAM_Green_rgB, blueAverage);
       break;
 
       case BLUE:
-      _preferences.putDouble("Blue_Rgb", redAverage);
-      _preferences.putDouble("Blue_rGb", greenAverage);
-      _preferences.putDouble("Blue_rgB", blueAverage);
+      _preferences.putDouble(Constants.PARAM_Blue_rGb, redAverage);
+      _preferences.putDouble(Constants.PARAM_Blue_rGb, greenAverage);
+      _preferences.putDouble(Constants.PARAM_Blue_rgB, blueAverage);
       break;
 
       case YELLOW:
-      _preferences.putDouble("Yellow_Rgb", redAverage);
-      _preferences.putDouble("Yellow_rGb", greenAverage);
-      _preferences.putDouble("Yellow_rgB", blueAverage);
+      _preferences.putDouble(Constants.PARAM_Yellow_Rgb, redAverage);
+      _preferences.putDouble(Constants.PARAM_Yellow_rGb, greenAverage);
+      _preferences.putDouble(Constants.PARAM_Yellow_rgB, blueAverage);
       break;
 
       default:
