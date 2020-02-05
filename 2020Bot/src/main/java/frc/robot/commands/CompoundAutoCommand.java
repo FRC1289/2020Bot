@@ -21,8 +21,8 @@ public class CompoundAutoCommand extends SequentialCommandGroup {
     // super(new FooCommand(), new BarCommand());
     _driveTrain = drivetrain;
     addCommands (
-      new AutoModeCommand(_driveTrain, 0.4),
-      new AutoModeCommand(_driveTrain, -0.4)
+      new AutoModeCommand(_driveTrain), // was positive speed
+      new AutoModeCommand(_driveTrain) // was negative speed
     );
     //super();
   }

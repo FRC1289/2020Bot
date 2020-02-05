@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.InterruptHandlerFunction;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
@@ -14,41 +15,52 @@ import frc.robot.Constants;
 
 public class AutoModeCommand extends CommandBase {
   DriveTrain _driveTrain;
-  double _targetEncoderCount;
-  double _speed;
+  int _targetEncoderCount;
 
-  public AutoModeCommand(DriveTrain driveTrain, double speed) {
+  public AutoModeCommand(DriveTrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     _driveTrain = driveTrain;
-    _speed = speed;
     addRequirements(_driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    //System.out.printf("auto cmd init\n");
     _driveTrain.reset();
-    _targetEncoderCount = SmartDashboard.getNumber(Constants.PARAM_targetEncoderCount, 0.0);
+    _targetEncoderCount = (int) SmartDashboard.getNumber(Constants.PARAM_targetEncoderCount, 0.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    _driveTrain.drive(_speed);
+   // System.out.printf("auto cmd exec\n");
+    _driveTrain.drive(SmartDashboard.getNumber(Constants.PARAM_autoModeSpeed, 0.4));
     SmartDashboard.putNumber(Constants.PARAM_encoderCount, _driveTrain.EncoderCount());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+   // System.out.printf("auto cmd end %s\n", interrupted ? "T" : "F");
+
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (_targetEncoderCount > _driveTrain.EncoderCount()) 
+    //System.out.printf("auto cmd isfin\n");
+    int currentCount = _driveTrain.EncoderCount();
+    //System.out.printf("%d %d\n", _targetEncoderCount, currentCount);
+    if (currentCount <= _targetEncoderCount) 
+    {
+     // System.out.printf("Not Done %d %d\n", _targetEncoderCount, currentCount);
       return false;
-    else 
+    }
+    else
+    { 
+      //System.out.printf("Done %d %d\n", _targetEncoderCount, currentCount);
       return true;
+    }
   }
 }

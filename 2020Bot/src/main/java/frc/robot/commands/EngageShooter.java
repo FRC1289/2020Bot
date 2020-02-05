@@ -9,7 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.ShooterManager;
 import frc.robot.Constants;
 
@@ -30,7 +30,7 @@ public class EngageShooter extends CommandBase {
     _timer.reset();
     _timer.start();
     _shooterManager.Shoot();
-    while (_timer.get() < Constants.PARAM_ShooterMotorStartupTime) {}
+    while (_timer.get() < SmartDashboard.getNumber(Constants.PARAM_shooterMotorStartupTime, 0.5)) {}
   }
 
   // Called every time the scheduler runs while the command is scheduled.

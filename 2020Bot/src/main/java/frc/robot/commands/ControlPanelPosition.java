@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.GameDataManager;
@@ -36,8 +37,8 @@ public class ControlPanelPosition extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    _controlPanel.setMotorSpeed(Constants.PARAM_panelRotateSpeed);
-    _driveTrain.drive(Constants.PARAM_panelThrust);
+    _controlPanel.setMotorSpeed(SmartDashboard.getNumber(Constants.PARAM_panelRotateSpeed, 0.4));
+    _driveTrain.drive(SmartDashboard.getNumber(Constants.PARAM_panelThrust, 0.1));
   }
 
   // Called once the command ends or is interrupted.

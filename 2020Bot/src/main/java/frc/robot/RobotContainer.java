@@ -16,29 +16,15 @@ import edu.wpi.first.wpilibj.DriverStation;
 import java.util.ResourceBundle.Control;
 
 import edu.wpi.first.wpilibj.GenericHID;
-//import edu.wpi.first.wpilibj.XboxController;
-//import frc.robot.commands.ExampleCommand;
-// import frc.robot.commands.AutoModeCommand;
-// import frc.robot.commands.CompoundAutoCommand;
-// import frc.robot.commands.ControlPanelCalibration;
-// import frc.robot.commands.ControlPanelCommand;
-// import frc.robot.commands.ControlPanelPosition;
-// import frc.robot.commands.TeleopCommand;
-import frc.robot.commands.*;
-//import frc.robot.subsystems.ControlPanel;
-//import frc.robot.subsystems.ExampleSubsystem;
-// import frc.robot.subsystems.DriveTrain;
-// import frc.robot.subsystems.GameDataManager;
-// import frc.robot.subsystems.NetworkDataManager;
-// import frc.robot.subsystems.ShooterManager;
-import frc.robot.subsystems.*;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
-//import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
 import frc.robot.ColorTarget;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -57,9 +43,10 @@ public class RobotContainer {
   private final GameDataManager _gameDataManager = new GameDataManager();
   private final ShooterManager _shooterManager = new ShooterManager();
   private final ClimberManager _climberManager = new ClimberManager();
+  private final LEDManager _ledManager = new LEDManager();
 
  // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private final AutoModeCommand _autoCommand = new AutoModeCommand(_driveTrain, 0.4);
+  private final AutoModeCommand _autoCommand = new AutoModeCommand(_driveTrain);
   private final CompoundAutoCommand _compoundAutoCommand = new CompoundAutoCommand(_driveTrain);
   private final ControlPanelCommand _controlPanelCommand = new ControlPanelCommand(_controlPanel, _driveTrain, _dataManager);
   private final ControlPanelPosition _controlPanelPositionCommand = new ControlPanelPosition(_controlPanel, _driveTrain, _gameDataManager);
@@ -73,11 +60,18 @@ public class RobotContainer {
   
   private final Joystick _driverStick = new Joystick(Constants.JS_DriverPort);
   private final Joystick _copilotStick = new Joystick(Constants.JS_CopilotPort);
+
+  // Driver Buttons
+  private final JoystickButton _raiseClimberButton = new JoystickButton(_driverStick, Constants.JS_RaiseClimber);
+  private final JoystickButton _climberButton = new JoystickButton(_driverStick, Constants.JS_Climb);
+
+  // Copilot Buttons
   private final JoystickButton _openGateButton = new JoystickButton(_copilotStick, Constants.JS_OpenGateButton);
  // private final JoystickButton _closeGateButton = new JoystickButton(_copilotStick, Constants.JS_CloseGateButton);
   private final JoystickButton _shootBallsButton = new JoystickButton(_copilotStick, Constants.JS_shootBallsButton);
-  private final JoystickButton _raiseClimberButton = new JoystickButton(_driverStick, Constants.JS_RaiseClimber);
-  private final JoystickButton _climberButton = new JoystickButton(_driverStick, Constants.JS_Climb);
+  private final JoystickButton _rotatePanelButton = new JoystickButton(_copilotStick, Constants.JS_rotatePanel);
+  private final JoystickButton _positionPanelButton = new JoystickButton(_copilotStick, Constants.JS_positionPanel);
+  
  
   // private final Button _positionControlPanel = 
   //   new JoystickButton(_stick, Constants.JS_positionPanel).whenPressed(new ControlPanelPosition(_controlPanel, _driveTrain, _gameDataManager));
@@ -102,6 +96,9 @@ public class RobotContainer {
     SmartDashboard.putData("TestMode", _testChooser);
     // Configure the button bindings
     configureButtonBindings();
+
+    CommandScheduler scheduler = CommandScheduler.getInstance();
+    scheduler.setDefaultCommand(_driveTrain, _teleOpCommand);
   }
 
   /**
@@ -115,7 +112,8 @@ public class RobotContainer {
     _shootBallsButton.whenHeld(new EngageShooter(_shooterManager));
     _raiseClimberButton.whenPressed(new RaiseClimber(_climberManager));
     _climberButton.whenPressed(new Climb(_climberManager));
-
+    _rotatePanelButton.whenHeld(new ControlPanelCommand(_controlPanel, _driveTrain, _dataManager));
+    _positionPanelButton.whenHeld(new ControlPanelPosition(_controlPanel, _driveTrain, _gameDataManager));
   }
 
 
@@ -129,7 +127,7 @@ public class RobotContainer {
   }
 
   public Command getTeleOpCommand() {
-    return _controlPanelCommand; //_teleOpCommand;  
+    return _teleOpCommand;  
   }
   
   public Command getTestCommand() {

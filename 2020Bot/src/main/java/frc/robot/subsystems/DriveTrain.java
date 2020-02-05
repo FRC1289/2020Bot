@@ -48,7 +48,6 @@ public class DriveTrain extends SubsystemBase {
 
      _gyro = new ADXRS450_Gyro();     
      _gyro.calibrate();
-
   }
 
   private void initDriveTrain() {
@@ -105,7 +104,7 @@ public class DriveTrain extends SubsystemBase {
     _driveTrain.arcadeDrive(throttle, 0.0);
   }
 
-  public double EncoderCount() {
-    return (_leftEncoder.get() + _rightEncoder.get()) / 2.0;
+  public int EncoderCount() {
+    return (int) ((_leftEncoder.get() + _rightEncoder.get()) / 2.0);
   }
 }

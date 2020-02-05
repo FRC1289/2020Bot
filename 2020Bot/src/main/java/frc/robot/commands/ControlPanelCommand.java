@@ -37,8 +37,8 @@ public class ControlPanelCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    _controlPanel.setMotorSpeed(Constants.PARAM_panelRotateSpeed);
-    _driveTrain.drive(Constants.PARAM_panelThrust);
+    _controlPanel.setMotorSpeed(SmartDashboard.getNumber(Constants.PARAM_panelRotateSpeed, 0.4));
+    _driveTrain.drive(SmartDashboard.getNumber(Constants.PARAM_panelThrust, 0.1));
   }
 
   // Called once the command ends or is interrupted.
@@ -51,7 +51,7 @@ public class ControlPanelCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (_controlPanel.GetEncoderCount() > Constants.PARAM_panelRotateCount)
+    if (_controlPanel.GetEncoderCount() > (int) SmartDashboard.getNumber(Constants.PARAM_panelRotateCount, 200))
       return true;
     else
       return false;

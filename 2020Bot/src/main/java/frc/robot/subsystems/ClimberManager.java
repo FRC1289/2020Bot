@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants;
 
@@ -39,11 +40,11 @@ public class ClimberManager extends SubsystemBase {
   }
 
   public void RaiseClimber() {
-    _elevateMotor.set(Constants.PARAM_elevateSpeed);
+    _elevateMotor.set(SmartDashboard.getNumber(Constants.PARAM_elevateSpeed, 0.0));
   }
 
   public void Climb() {
-    _climbMotor.set(Constants.PARAM_climbSpeed);
+    _climbMotor.set(SmartDashboard.getNumber(Constants.PARAM_climbSpeed, 0.0));
   }
 
   public void Reset() {

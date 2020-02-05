@@ -125,6 +125,7 @@ public class ControlPanel extends SubsystemBase {
   }
 
   public int GetEncoderCount() { 
+  
     return _encoder.get();
   }
 }

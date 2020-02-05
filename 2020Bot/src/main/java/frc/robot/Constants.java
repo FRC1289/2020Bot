@@ -33,6 +33,7 @@ public final class Constants {
     public static int PWM_ClimberElevateMotor = 5;
     public static int PWM_LowerBallFeederGate = 6;
     public static int PWM_HighBallFeederGate = 7;
+    public static int PWM_LEDStrip = 9;
     
 
     // DIO Bus
@@ -53,11 +54,12 @@ public final class Constants {
     public static int JS_Trigger = 1;
     public static int JS_RaiseClimber = 4;
     public static int JS_Climb = 5;
-    public static int JS_positionPanel = 7;
 
     // Copilot Stick Buttons
     public static int JS_OpenGateButton = 4;
     public static int JS_shootBallsButton = 1;
+    public static int JS_rotatePanel = 2;
+    public static int JS_positionPanel = 3;
     //public static int JS_CloseGateButton = 5;
     
     
@@ -67,10 +69,10 @@ public final class Constants {
     public static String PARAM_targetEncoderCount = "targetEncoderCount";
     public static String PARAM_encoderCount = "encoderCount";
     public static String PARAM_kP = "kP";
-    public static String PARAM_panelStallSpeed = "PanelStallSpeed";
-    public static double PARAM_panelRotateSpeed = 0.2;
-    public static double PARAM_panelThrust = 0.1;
-    public static int PARAM_panelRotateCount = 300;
+    public static String PARAM_panelDriveMotorStallSpeed = "PanelDriveMotorStallSpeed";
+    public static String PARAM_panelRotateSpeed = "PanelRotateSpeed";
+    public static String PARAM_panelThrust = "PanelThrust";
+    public static String PARAM_panelRotateCount = "PanelRotateCount";
 
     public static String PARAM_PANEL_COLOR = "PANEL COLOR";
     public static String PARAM_Blue_Rgb = "Blue_Rgb";
@@ -91,10 +93,17 @@ public final class Constants {
 
     public static String PARAM_Proximity = "Proximity";
 
+    public static String PARAM_shooterMotorSpeed = "ShooterMotorSpeed";
+    public static String PARAM_shooterMotorStartupTime = "ShooterMotorStartupTime";
+    public static String PARAM_elevateSpeed = "ElevateSpeed";
+    public static String PARAM_climbSpeed = "ClimbSpeed";
 
-    public static double PARAM_ShooterMotorSpeed = 0.4;
-    public static double PARAM_ShooterMotorStartupTime = 1.0;
-    public static double PARAM_elevateSpeed = 0.4;
-    public static double PARAM_climbSpeed = 0.4;
+    public static String PARAM_lowerGateServoClosed = "LowerGateServoClosed";
+    public static String PARAM_lowerGateServoOpened = "LowerGateServoOpened";
+    public static String PARAM_highGateServoClosed = "HighGateServoClosed";
+    public static String PARAM_highGateServoOpened = "HighGateServoOpened";
+
+    public static String PARAM_autoModeSpeed = "AutoModeSpeed";
+
 
 }

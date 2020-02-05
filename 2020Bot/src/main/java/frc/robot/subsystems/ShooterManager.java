@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Servo;
 
 public class ShooterManager extends SubsystemBase {
@@ -34,9 +35,10 @@ public class ShooterManager extends SubsystemBase {
   }
 
   public void Shoot() {
-    _leftShooterMotor.set(Constants.PARAM_ShooterMotorSpeed);
-    _rightShooterMotor.set(- Constants.PARAM_ShooterMotorSpeed);
-    _feederMotor.set(Constants.PARAM_ShooterMotorSpeed);
+    double speed = SmartDashboard.getNumber(Constants.PARAM_shooterMotorSpeed, 0.0);
+    _leftShooterMotor.set(speed);
+    _rightShooterMotor.set(- speed);
+    _feederMotor.set(speed);
   }
 
   public void reset() {
@@ -46,18 +48,18 @@ public class ShooterManager extends SubsystemBase {
   }
 
   public void OpenLowerGate() {
-    _lowerBallGate.set(0.5);
+    _lowerBallGate.set(SmartDashboard.getNumber(Constants.PARAM_lowerGateServoOpened, 0.5));
   }
 
   public void CloseLowerGate(){
-    _lowerBallGate.set(0.0);
+    _lowerBallGate.set(SmartDashboard.getNumber(Constants.PARAM_lowerGateServoOpened, 0.0));
   }
 
   public void OpenHighGate() {
-    _highBallGate.set(0.5);
+    _highBallGate.set(SmartDashboard.getNumber(Constants.PARAM_highGateServoOpened, 0.5));
   }
 
   public void CloseHighGate(){
-    _highBallGate.set(0.0);
+    _highBallGate.set(SmartDashboard.getNumber(Constants.PARAM_highGateServoClosed, 0.0));
   }
 }
