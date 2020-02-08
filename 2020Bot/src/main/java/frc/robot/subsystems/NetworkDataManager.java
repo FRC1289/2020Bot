@@ -46,23 +46,39 @@ public class NetworkDataManager extends SubsystemBase {
   }
 
   private void UpdateDashboard() {
-    SmartDashboard.putNumber(Constants.PARAM_targetEncoderCount, _targetEncoderCount.getDouble(0.0));
-    SmartDashboard.putNumber(Constants.PARAM_encoderCount, 0.0);
-    SmartDashboard.putNumber(Constants.PARAM_kP, _gyroPGain.getDouble(0.0));
-    SmartDashboard.putNumber(Constants.PARAM_panelDriveMotorStallSpeed, _panelDriveMotorStallSpeed.getDouble(0.0));
-    SmartDashboard.putString(Constants.PARAM_PANEL_COLOR, "------");
-    SmartDashboard.putNumber(Constants.PARAM_panelThrust, _panelThrust.getDouble(0.1));
-    SmartDashboard.putNumber(Constants.PARAM_panelRotateCount, _panelRotateSpeed.getDouble(0.2));
-    SmartDashboard.putNumber(Constants.PARAM_panelRotateCount, _panelRotateCount.getDouble(300.0));
-    SmartDashboard.putNumber(Constants.PARAM_shooterMotorSpeed, _shooterMotorSpeed.getDouble(0.4));
-    SmartDashboard.putNumber(Constants.PARAM_shooterMotorStartupTime, _shooterMotorStartupTime.getDouble(1.0));
-    SmartDashboard.putNumber(Constants.PARAM_elevateSpeed, _elevateSpeed.getDouble(0.4));
-    SmartDashboard.putNumber(Constants.PARAM_climbSpeed, _climbSpeed.getDouble(0.4));
-    SmartDashboard.putNumber(Constants.PARAM_lowerGateServoClosed, _lowerGateServoClosed.getDouble(0.0));
-    SmartDashboard.putNumber(Constants.PARAM_lowerGateServoOpened, _lowerGateServoOpened.getDouble(0.5));
-    SmartDashboard.putNumber(Constants.PARAM_highGateServoClosed, _highGateServoClosed.getDouble(0.0));
-    SmartDashboard.putNumber(Constants.PARAM_highGateServoOpened, _highGateServoOpened.getDouble(0.5));
+    // Static values
+    SmartDashboard.putNumber(Constants.PARAM_targetEncoderCount, 
+                            _targetEncoderCount.getDouble(Constants.DEFAULT_targetEncoderCount));
+    SmartDashboard.putNumber(Constants.PARAM_kP, 
+                            _gyroPGain.getDouble(Constants.DEFAULT_kP));
+    SmartDashboard.putNumber(Constants.PARAM_autoModeSpeed, 
+                            _autoModeSpeed.getDouble(Constants.DEFAULT_autoModeSpeed));
+    SmartDashboard.putNumber(Constants.PARAM_panelDriveMotorStallSpeed, 
+                            _panelDriveMotorStallSpeed.getDouble(Constants.DEFAULT_panelDriveMotorStallSpeed));
+    SmartDashboard.putNumber(Constants.PARAM_panelThrust, 
+                            _panelThrust.getDouble(Constants.DEFAULT_panelThrust));
+    SmartDashboard.putNumber(Constants.PARAM_panelRotateSpeed, 
+                            _panelRotateSpeed.getDouble(Constants.DEFAULT_panelRotateSpeed));
+    SmartDashboard.putNumber(Constants.PARAM_panelRotateCount, 
+                            _panelRotateCount.getDouble(Constants.DEFAULT_panelRotateCount));
+    SmartDashboard.putNumber(Constants.PARAM_shooterMotorSpeed, 
+                            _shooterMotorSpeed.getDouble(Constants.DEFAULT_shooterMotorSpeed));
+    SmartDashboard.putNumber(Constants.PARAM_shooterMotorStartupTime, 
+                            _shooterMotorStartupTime.getDouble(Constants.DEFAULT_shooterMotorStartupTime));
+    SmartDashboard.putNumber(Constants.PARAM_elevateSpeed, 
+                            _elevateSpeed.getDouble(Constants.DEFAULT_elevateSpeed));
+    SmartDashboard.putNumber(Constants.PARAM_climbSpeed, 
+                            _climbSpeed.getDouble(Constants.DEFAULT_climbSpeed));
+    SmartDashboard.putNumber(Constants.PARAM_lowerGateServoClosed, 
+                            _lowerGateServoClosed.getDouble(Constants.DEFAULT_lowerGateServoClosed));
+    SmartDashboard.putNumber(Constants.PARAM_lowerGateServoOpened, 
+                            _lowerGateServoOpened.getDouble(Constants.DEFAULT_lowerGateServoOpened));
+    SmartDashboard.putNumber(Constants.PARAM_highGateServoClosed, 
+                            _highGateServoClosed.getDouble(Constants.DEFAULT_highGateServoClosed));
+    SmartDashboard.putNumber(Constants.PARAM_highGateServoOpened, 
+                            _highGateServoOpened.getDouble(Constants.DEFAULT_highGateServoOpened));
     
+    // Calibrated values
     SmartDashboard.putNumber(Constants.PARAM_Blue_Rgb, _preferences.getDouble(Constants.PARAM_Blue_Rgb, 0.0));
     SmartDashboard.putNumber(Constants.PARAM_Blue_rGb, _preferences.getDouble(Constants.PARAM_Blue_rGb, 0.0));
     SmartDashboard.putNumber(Constants.PARAM_Blue_rgB, _preferences.getDouble(Constants.PARAM_Blue_rgB, 0.0));
@@ -75,9 +91,11 @@ public class NetworkDataManager extends SubsystemBase {
     SmartDashboard.putNumber(Constants.PARAM_Yellow_Rgb, _preferences.getDouble(Constants.PARAM_Yellow_Rgb, 0.0));
     SmartDashboard.putNumber(Constants.PARAM_Yellow_rGb, _preferences.getDouble(Constants.PARAM_Yellow_rGb, 0.0));
     SmartDashboard.putNumber(Constants.PARAM_Yellow_rgB, _preferences.getDouble(Constants.PARAM_Yellow_rgB, 0.0));
-    SmartDashboard.putNumber(Constants.PARAM_Proximity, _preferences.getDouble(Constants.PARAM_Proximity, 0.0));
+    SmartDashboard.putNumber(Constants.PARAM_Proximity, _preferences.getDouble(Constants.PARAM_Proximity, 15.0));
 
-    SmartDashboard.putNumber(Constants.PARAM_autoModeSpeed, _autoModeSpeed.getDouble(0.4));
+    // Dynamic values
+    SmartDashboard.putNumber(Constants.PARAM_encoderCount, 0.0);
+    SmartDashboard.putString(Constants.PARAM_PANEL_COLOR, "------");
   }
 
   private void NetworkTableSetup() {

@@ -9,7 +9,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -93,6 +92,8 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void drive(double throttle, double rotation, boolean triggerState) {
+    if (triggerState)
+      throttle = throttle / 2.0;
     _driveTrain.curvatureDrive(throttle, rotation, triggerState);
   }
 

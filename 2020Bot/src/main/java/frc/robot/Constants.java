@@ -22,18 +22,18 @@ public final class Constants {
     public static int CAN_LeftFollower = 4;
     public static int CAN_RightMotor = 2;
     public static int CAN_RightFollower = 3;
+    public static int CAN_ShooterLeftMotor = 5;
+    public static int CAN_ShooterRightMotor = 6;
 
 
     // PWM Bus
     public static int PWM_ControlPanelMotor = 0;
-    public static int PWM_ShooterLeftMotor = 1;
-    public static int PWM_ShooterRightMotor = 2;
     public static int PWM_ShooterFeederMotor = 3;
     public static int PWM_ClimberClimbMotor = 4;
     public static int PWM_ClimberElevateMotor = 5;
     public static int PWM_LowerBallFeederGate = 6;
     public static int PWM_HighBallFeederGate = 7;
-    public static int PWM_LEDStrip = 9;
+    public static int PWM_LEDStrip = 1;
     
 
     // DIO Bus
@@ -52,14 +52,14 @@ public final class Constants {
 
     // Driver Stick Buttons
     public static int JS_Trigger = 1;
-    public static int JS_RaiseClimber = 4;
-    public static int JS_Climb = 5;
+    public static int JS_RaiseClimber = 3;
+    public static int JS_Climb = 2;
 
     // Copilot Stick Buttons
-    public static int JS_OpenGateButton = 4;
+    public static int JS_OpenGateButton = 2;
     public static int JS_shootBallsButton = 1;
-    public static int JS_rotatePanel = 2;
-    public static int JS_positionPanel = 3;
+    public static int JS_rotatePanel = 3;
+    public static int JS_positionPanel = 5;
     //public static int JS_CloseGateButton = 5;
     
     
@@ -105,5 +105,20 @@ public final class Constants {
 
     public static String PARAM_autoModeSpeed = "AutoModeSpeed";
 
-
+    // default values for constants to be modified via dashboard
+    public static double DEFAULT_targetEncoderCount = 35.0;
+    public static double DEFAULT_kP = 0.0;
+    public static double DEFAULT_autoModeSpeed = 0.4;
+    public static double DEFAULT_panelDriveMotorStallSpeed = 0.2;
+    public static double DEFAULT_panelThrust = 0.1;
+    public static double DEFAULT_panelRotateSpeed = 0.2;
+    public static double DEFAULT_panelRotateCount = 300;
+    public static double DEFAULT_shooterMotorSpeed = 0.4;
+    public static double DEFAULT_shooterMotorStartupTime = 1.0;
+    public static double DEFAULT_elevateSpeed = 0.4;
+    public static double DEFAULT_climbSpeed = 0.4;
+    public static double DEFAULT_lowerGateServoClosed = 0.0;
+    public static double DEFAULT_lowerGateServoOpened = 0.5;
+    public static double DEFAULT_highGateServoClosed = 0.0;
+    public static double DEFAULT_highGateServoOpened = 0.5;
 }

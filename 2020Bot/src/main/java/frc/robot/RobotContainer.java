@@ -8,19 +8,13 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.DriverStation;
-
-import java.util.ResourceBundle.Control;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Button;
+
 import frc.robot.Constants;
 import frc.robot.ColorTarget;
 import frc.robot.commands.*;
@@ -43,13 +37,13 @@ public class RobotContainer {
   private final GameDataManager _gameDataManager = new GameDataManager();
   private final ShooterManager _shooterManager = new ShooterManager();
   private final ClimberManager _climberManager = new ClimberManager();
-  private final LEDManager _ledManager = new LEDManager();
+  //private final LEDManager _ledManager = new LEDManager();
 
- // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  // private final ExampleCommand _exampleCommand = new ExampleCommand(1);
   private final AutoModeCommand _autoCommand = new AutoModeCommand(_driveTrain);
   private final CompoundAutoCommand _compoundAutoCommand = new CompoundAutoCommand(_driveTrain);
-  private final ControlPanelCommand _controlPanelCommand = new ControlPanelCommand(_controlPanel, _driveTrain, _dataManager);
-  private final ControlPanelPosition _controlPanelPositionCommand = new ControlPanelPosition(_controlPanel, _driveTrain, _gameDataManager);
+ // private final ControlPanelCommand _controlPanelCommand = new ControlPanelCommand(_controlPanel, _driveTrain, _dataManager);
+ // private final ControlPanelPosition _controlPanelPositionCommand = new ControlPanelPosition(_controlPanel, _driveTrain, _gameDataManager);
   private final ControlPanelCalibration _redCalibrationCommand = new ControlPanelCalibration(_controlPanel, ColorTarget.RED);
   private final ControlPanelCalibration _greenCalibrationCommand = new ControlPanelCalibration(_controlPanel, ColorTarget.GREEN);
   private final ControlPanelCalibration _blueCalibrationCommand = new ControlPanelCalibration(_controlPanel, ColorTarget.BLUE);
@@ -90,7 +84,7 @@ public class RobotContainer {
     _testChooser.addOption("GreenCalibration", _greenCalibrationCommand);
     _testChooser.addOption("BlueCalibration", _blueCalibrationCommand);
     _testChooser.addOption("YellowCalibration", _yellowCalibrationCommand);
-    _testChooser.addOption("PanelPositioner", _controlPanelPositionCommand);
+    //_testChooser.addOption("PanelPositioner", _controlPanelPositionCommand);
     
     SmartDashboard.putData("AutoMode", _autoChooser);
     SmartDashboard.putData("TestMode", _testChooser);
@@ -112,8 +106,38 @@ public class RobotContainer {
     _shootBallsButton.whenHeld(new EngageShooter(_shooterManager));
     _raiseClimberButton.whenPressed(new RaiseClimber(_climberManager));
     _climberButton.whenPressed(new Climb(_climberManager));
-    _rotatePanelButton.whenHeld(new ControlPanelCommand(_controlPanel, _driveTrain, _dataManager));
+    _rotatePanelButton.whenHeld(new ControlPanelCommand(_controlPanel, _driveTrain));
     _positionPanelButton.whenHeld(new ControlPanelPosition(_controlPanel, _driveTrain, _gameDataManager));
+/*
+    //test code to figure out which button is which
+
+    JoystickButton b1 = new JoystickButton(_driverStick, 1);
+    JoystickButton b2 = new JoystickButton(_driverStick, 2);
+    JoystickButton b3 = new JoystickButton(_driverStick, 3);
+    JoystickButton b4 = new JoystickButton(_driverStick, 4);
+    JoystickButton b5 = new JoystickButton(_driverStick, 5);
+    JoystickButton b6 = new JoystickButton(_driverStick, 6);
+    JoystickButton b7 = new JoystickButton(_driverStick, 7);
+    JoystickButton b8 = new JoystickButton(_driverStick, 8);
+    JoystickButton b9 = new JoystickButton(_driverStick, 9);
+    JoystickButton b10 = new JoystickButton(_driverStick, 10);
+    JoystickButton b11 = new JoystickButton(_driverStick, 11);
+    JoystickButton b12 = new JoystickButton(_driverStick, 12);
+  
+    b1.whenPressed(new ExampleCommand(1));
+    b2.whenPressed(new ExampleCommand(2));
+    b3.whenPressed(new ExampleCommand(3));
+    b4.whenPressed(new ExampleCommand(4));
+    b5.whenPressed(new ExampleCommand(5));
+    b6.whenPressed(new ExampleCommand(6));
+    b7.whenPressed(new ExampleCommand(7));
+    b8.whenPressed(new ExampleCommand(8));
+    b9.whenPressed(new ExampleCommand(9));
+    b10.whenPressed(new ExampleCommand(10));
+    b11.whenPressed(new ExampleCommand(11));
+    b12.whenPressed(new ExampleCommand(12));
+
+*/
   }
 
 

@@ -11,21 +11,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.NetworkDataManager;
 import frc.robot.Constants;
 
 public class ControlPanelCommand extends CommandBase {
   
   private ControlPanel _controlPanel;
   private DriveTrain _driveTrain;
-  private NetworkDataManager _dataManager;
   
-  public ControlPanelCommand(ControlPanel panel, DriveTrain drivetrain, NetworkDataManager datamanager) {
+  public ControlPanelCommand(ControlPanel panel, DriveTrain drivetrain) {
     addRequirements(panel);
     addRequirements(drivetrain);
     _controlPanel = panel;
     _driveTrain = drivetrain;
-    _dataManager = datamanager;
   }
 
   // Called when the command is initially scheduled.

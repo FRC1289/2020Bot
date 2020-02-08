@@ -10,23 +10,34 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.Talon;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+//import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Servo;
 
 public class ShooterManager extends SubsystemBase {
   
-  Talon _leftShooterMotor;
-  Talon _rightShooterMotor;
+  WPI_VictorSPX _leftShooterMotor;
+  WPI_VictorSPX _rightShooterMotor;
   Talon _feederMotor;
   Servo _lowerBallGate;
   Servo _highBallGate;
   
   public ShooterManager() {
-    _leftShooterMotor = new Talon(Constants.PWM_ShooterLeftMotor);
-    _rightShooterMotor = new Talon(Constants.PWM_ShooterRightMotor);
+    _leftShooterMotor = new WPI_VictorSPX(Constants.CAN_ShooterLeftMotor);
+    _rightShooterMotor = new WPI_VictorSPX(Constants.CAN_ShooterRightMotor);
     _feederMotor = new Talon(Constants.PWM_ShooterFeederMotor);
     _lowerBallGate = new Servo(Constants.PWM_LowerBallFeederGate);
     _highBallGate = new Servo(Constants.PWM_HighBallFeederGate);
+
+    _leftShooterMotor.set(ControlMode.PercentOutput, 0);
+    _rightShooterMotor.set(ControlMode.PercentOutput, 0);
+    _leftShooterMotor.configFactoryDefault();
+    _rightShooterMotor.configFactoryDefault();
+    _rightShooterMotor.setInverted(true);
+    _leftShooterMotor.setInverted(false);
   }
 
   @Override
