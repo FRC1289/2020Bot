@@ -46,7 +46,7 @@ public class ShooterManager extends SubsystemBase {
   }
 
   public void Shoot() {
-    double speed = SmartDashboard.getNumber(Constants.PARAM_shooterMotorSpeed, 0.0);
+    double speed = SmartDashboard.getNumber(Constants.PARAM_shooterMotorSpeed, Constants.DEFAULT_shooterMotorSpeed);
     _leftShooterMotor.set(speed);
     _rightShooterMotor.set(- speed);
     _feederMotor.set(speed);
@@ -59,18 +59,22 @@ public class ShooterManager extends SubsystemBase {
   }
 
   public void OpenLowerGate() {
-    _lowerBallGate.set(SmartDashboard.getNumber(Constants.PARAM_lowerGateServoOpened, 0.5));
+    _lowerBallGate.set(SmartDashboard.getNumber(Constants.PARAM_lowerGateServoOpened, 
+                                                Constants.DEFAULT_lowerGateServoOpened));
   }
 
   public void CloseLowerGate(){
-    _lowerBallGate.set(SmartDashboard.getNumber(Constants.PARAM_lowerGateServoOpened, 0.0));
+    _lowerBallGate.set(SmartDashboard.getNumber(Constants.PARAM_lowerGateServoOpened, 
+                                                Constants.DEFAULT_lowerGateServoOpened));
   }
 
   public void OpenHighGate() {
-    _highBallGate.set(SmartDashboard.getNumber(Constants.PARAM_highGateServoOpened, 0.5));
+    _highBallGate.set(SmartDashboard.getNumber(Constants.PARAM_highGateServoOpened, 
+                                               Constants.DEFAULT_highGateServoOpened));
   }
 
   public void CloseHighGate(){
-    _highBallGate.set(SmartDashboard.getNumber(Constants.PARAM_highGateServoClosed, 0.0));
+    _highBallGate.set(SmartDashboard.getNumber(Constants.PARAM_highGateServoClosed, 
+                                               Constants.DEFAULT_highGateServoClosed));
   }
 }

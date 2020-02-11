@@ -40,11 +40,13 @@ public class ClimberManager extends SubsystemBase {
   }
 
   public void RaiseClimber() {
-    _elevateMotor.set(SmartDashboard.getNumber(Constants.PARAM_elevateSpeed, 0.0));
+    _elevateMotor.set(SmartDashboard.getNumber(Constants.PARAM_elevateSpeed, 
+                                                Constants.DEFAULT_elevateSpeed));
   }
 
   public void Climb() {
-    _climbMotor.set(SmartDashboard.getNumber(Constants.PARAM_climbSpeed, 0.0));
+    _climbMotor.set(SmartDashboard.getNumber(Constants.PARAM_climbSpeed,
+                                              Constants.DEFAULT_climbSpeed));
   }
 
   public void Reset() {

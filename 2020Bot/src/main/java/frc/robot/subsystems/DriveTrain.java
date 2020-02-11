@@ -98,7 +98,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void drive(double throttle) {
-    // double kp = SmartDashboard.getNumber(Constants.PARAM_kP, 0.0);
+    // double kp = SmartDashboard.getNumber(Constants.PARAM_kP, Constants.DEFAULT_kP);
     // double turn = - _gyro.getRate();
     // System.out.println(turn);
     // _driveTrain.arcadeDrive(throttle + turn * kp , - turn * kp );
