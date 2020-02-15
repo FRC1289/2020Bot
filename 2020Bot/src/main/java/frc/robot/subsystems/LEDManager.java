@@ -8,21 +8,30 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+
 
 import frc.robot.Constants;
 
 public class LEDManager extends SubsystemBase {
-  Spark _ledStrip;
+  AddressableLED _ledStrip;
+  AddressableLEDBuffer _ledBuffer;
 
   public LEDManager() {
-    _ledStrip = new Spark(Constants.PWM_LEDStrip);
+    _ledStrip = new AddressableLED(Constants.PWM_LEDStrip);
+    _ledBuffer = new AddressableLEDBuffer(144);
+    _ledStrip.setLength(_ledBuffer.getLength());
+    _ledStrip.setData(_ledBuffer);
+    _ledStrip.start();
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    for (double i = -1.0; i < 1.0; i+=0.01)
-      _ledStrip.set(i);
+    for (var i = 1; i < _ledBuffer.getLength(); i++) {
+      _ledBuffer.setRGB(i, 255, 0, 0);
+      _ledStrip.setData(_ledBuffer);
+    }
   }
 }

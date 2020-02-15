@@ -37,7 +37,7 @@ public class RobotContainer {
   private final GameDataManager _gameDataManager = new GameDataManager();
   private final ShooterManager _shooterManager = new ShooterManager();
   private final ClimberManager _climberManager = new ClimberManager();
-  //private final LEDManager _ledManager = new LEDManager();
+  private final LEDManager _ledManager = new LEDManager();
 
   // private final ExampleCommand _exampleCommand = new ExampleCommand(1);
   private final AutoModeCommand _autoCommand = new AutoModeCommand(_driveTrain);
@@ -69,7 +69,8 @@ public class RobotContainer {
  
   // private final Button _positionControlPanel = 
   //   new JoystickButton(_stick, Constants.JS_positionPanel).whenPressed(new ControlPanelPosition(_controlPanel, _driveTrain, _gameDataManager));
-  private final TeleopCommand _teleOpCommand = new TeleopCommand(_driveTrain, _driverStick, _gameDataManager);
+  private final TeleopCommand _teleOpCommand = new TeleopCommand(_driveTrain, _driverStick, _gameDataManager
+  );
 
 
   /**

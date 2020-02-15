@@ -37,8 +37,8 @@ public class ControlPanelPosition extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    _controlPanel.setMotorSpeed(SmartDashboard.getNumber(Constants.PARAM_panelRotateSpeed, 0.4));
-    _driveTrain.drive(SmartDashboard.getNumber(Constants.PARAM_panelThrust, 0.1));
+    _controlPanel.setMotorSpeed(SmartDashboard.getNumber(Constants.PARAM_panelRotateSpeed, Constants.DEFAULT_panelRotateSpeed));
+    _driveTrain.drive(SmartDashboard.getNumber(Constants.PARAM_panelThrust, Constants.DEFAULT_panelThrust));
   }
 
   // Called once the command ends or is interrupted.

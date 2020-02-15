@@ -109,7 +109,7 @@ public final class Constants {
     public static double DEFAULT_kP = 0.0;
     public static double DEFAULT_autoModeSpeed = 0.4;
     public static double DEFAULT_panelDriveMotorStallSpeed = 0.2;
-    public static double DEFAULT_panelThrust = 0.1;
+    public static double DEFAULT_panelThrust = 0.25;
     public static double DEFAULT_panelRotateSpeed = 0.2;
     public static double DEFAULT_panelRotateCount = 300;
     public static double DEFAULT_shooterMotorSpeed = 1.0;

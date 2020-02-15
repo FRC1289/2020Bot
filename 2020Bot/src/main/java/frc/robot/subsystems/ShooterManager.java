@@ -37,7 +37,7 @@ public class ShooterManager extends SubsystemBase {
     _leftShooterMotor.configFactoryDefault();
     _rightShooterMotor.configFactoryDefault();
     _rightShooterMotor.setInverted(true);
-    _leftShooterMotor.setInverted(false);
+    _leftShooterMotor.setInverted(true);
   }
 
   @Override
