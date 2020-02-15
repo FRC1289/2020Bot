@@ -27,7 +27,8 @@ public class Climb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    _climber.Climb();
+    if (_climber.IsRaised())
+      _climber.Climb();
   }
 
   // Called once the command ends or is interrupted.
@@ -39,7 +40,7 @@ public class Climb extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (_climber.ClimbSwitchState())
+    if (_climber.ClimbSwitchState() || ! _climber.IsRaised())
       return true;
     else
       return false;

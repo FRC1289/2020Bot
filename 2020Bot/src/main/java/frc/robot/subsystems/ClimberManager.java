@@ -18,12 +18,14 @@ public class ClimberManager extends SubsystemBase {
   DigitalInput _elevateLimit;
   Talon _climbMotor;
   Talon _elevateMotor;
+  boolean _raised;
   
   public ClimberManager() {
     _climbLimit = new DigitalInput(Constants.DIO_ClimberClimbLimitSwitch);
     _elevateLimit = new DigitalInput(Constants.DIO_ClimberElevateLimitSwitch);
     _climbMotor = new Talon(Constants.PWM_ClimberClimbMotor);
     _elevateMotor = new Talon(Constants.PWM_ClimberElevateMotor);
+    _raised = false;
   }
 
   @Override
@@ -45,12 +47,20 @@ public class ClimberManager extends SubsystemBase {
   }
 
   public void Climb() {
-    _climbMotor.set(SmartDashboard.getNumber(Constants.PARAM_climbSpeed,
+      _climbMotor.set(SmartDashboard.getNumber(Constants.PARAM_climbSpeed,
                                               Constants.DEFAULT_climbSpeed));
   }
 
   public void Reset() {
     _climbMotor.set(0.0);
     _elevateMotor.set(0.0);
+  }
+
+  public void SetRaiseState(boolean state) {
+    _raised = state;
+  }
+
+  public boolean IsRaised() {
+    return _raised;
   }
 }

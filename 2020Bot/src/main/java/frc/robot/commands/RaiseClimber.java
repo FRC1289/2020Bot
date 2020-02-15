@@ -34,6 +34,8 @@ public class RaiseClimber extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     _climberManager.Reset();
+    if (! interrupted)
+      _climberManager.SetRaiseState(true);
   }
 
   // Returns true when the command should end.
