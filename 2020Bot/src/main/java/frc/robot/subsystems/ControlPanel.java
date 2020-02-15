@@ -9,7 +9,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.Talon;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,11 +28,11 @@ public class ControlPanel extends SubsystemBase {
   private ColorMatch _colorMatcher;
   private Color _blue, _green, _red, _yellow;
   private Preferences _preferences;
-  private Talon _motor;
+  private WPI_TalonSRX _motor;
   private Encoder _encoder;
 
   public ControlPanel() {
-   _motor = new Talon(Constants.PWM_ControlPanelMotor);
+   _motor = new WPI_TalonSRX(Constants.CAN_ControlPanelMotor);
     _colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
    _colorMatcher = new ColorMatch();
    _preferences = Preferences.getInstance();

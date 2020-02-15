@@ -19,15 +19,14 @@ public final class Constants {
     // CAN Bus
     //public static int CAN_Testmotor = 1;
     public static int CAN_LeftMotor = 1;
-    public static int CAN_LeftFollower = 4;
+    public static int CAN_LeftFollower = 3;
     public static int CAN_RightMotor = 2;
-    public static int CAN_RightFollower = 3;
+    public static int CAN_RightFollower = 4;
     public static int CAN_ShooterLeftMotor = 5;
     public static int CAN_ShooterRightMotor = 6;
-
+    public static int CAN_ControlPanelMotor = 7;
 
     // PWM Bus
-    public static int PWM_ControlPanelMotor = 0;
     public static int PWM_ShooterFeederMotor = 3;
     public static int PWM_ClimberClimbMotor = 4;
     public static int PWM_ClimberElevateMotor = 5;
@@ -113,12 +112,12 @@ public final class Constants {
     public static double DEFAULT_panelThrust = 0.1;
     public static double DEFAULT_panelRotateSpeed = 0.2;
     public static double DEFAULT_panelRotateCount = 300;
-    public static double DEFAULT_shooterMotorSpeed = 0.4;
+    public static double DEFAULT_shooterMotorSpeed = 1.0;
     public static double DEFAULT_shooterMotorStartupTime = 1.0;
     public static double DEFAULT_elevateSpeed = 0.4;
     public static double DEFAULT_climbSpeed = 0.4;
-    public static double DEFAULT_lowerGateServoClosed = 0.0;
-    public static double DEFAULT_lowerGateServoOpened = 0.5;
-    public static double DEFAULT_highGateServoClosed = 0.0;
-    public static double DEFAULT_highGateServoOpened = 0.5;
+    public static double DEFAULT_lowerGateServoClosed = 0.5;
+    public static double DEFAULT_lowerGateServoOpened = 0.0;
+    public static double DEFAULT_highGateServoClosed = 0.5;
+    public static double DEFAULT_highGateServoOpened = 0.0;
 }
